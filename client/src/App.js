@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './actions';
+import { Link, NavLink } from 'react-router-dom';
+import * as actions from './actions'
 import axios from 'axios';
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.css';
 import Restaurants from './components/Restaurants';
-import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
+
+import SearchForm from './components/SearchForm';
 
 class App extends Component {
   callYelp = (term, location) => {
@@ -17,7 +19,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
-          <a className="navbar-brand" href="#">FoodWikipedia</a>
+          <Link to="/">
+            FoodWikipedia
+          </Link>
         </header>
         <span
           onClick={() => this.callYelp('sushi', 'toronto')}
@@ -42,22 +46,41 @@ class App extends Component {
                   </div>
                 </div>
               </form>
-              <button>click</button>
+              <div className="col-3 bd-sidebar">
+                <SearchForm />
+                <button onClick={this.props.fetchWatsonRequest()}>click</button>
+              </div>
             </div>
-            <div className="col-10">
+            <div className="col-7">
               <h2>Search Results For: ChungGookJang</h2>
               <ul className="nav nav-tabs">
                 <li className="nav-item">
-                  <a className="nav-link active" href="#">Restaurants</a>
+                  <NavLink
+                    to="/restaurants"
+                    className="nav-link">
+                    Restaurants
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Recipes</a>
+                  <NavLink
+                    to="/recipes"
+                    className="nav-link">
+                    Recipes
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Ingredients</a>
+                  <NavLink
+                    to="/nutrition"
+                    className="nav-link">
+                    Nutrition
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link disabled" href="#">News</a>
+                  <NavLink
+                    to="/news"
+                    className="nav-link disabled">
+                    News
+                  </NavLink>
                 </li>
               </ul>
               {

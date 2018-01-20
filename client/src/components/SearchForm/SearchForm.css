@@ -1,0 +1,19 @@
+.SearchForm {
+    padding: 15px 0;
+}
+.SearchForm > .btn-group {
+    display: block;
+}
+.SearchForm > .btn-group > button {
+    border-radius: 0;
+    display: block;
+    margin: 5px auto 15px !important;
+    width: 100%;
+    font-size: 12px;
+}
+.SearchForm > .input-group > img {
+    display: block;
+    height: 100%;
+    margin-bottom: 15px;
+    width: 100%;
+}
