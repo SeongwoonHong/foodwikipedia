@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import * as actions from './actions'
-import axios from 'axios';
+import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import * as actions from './actions';
 import 'bootstrap/dist/css/bootstrap.css';
-import Restaurants from './components/Restaurants';
 import './App.css';
 
 import SearchForm from './components/SearchForm';
+import Restaurants from './components/Restaurants';
+import Recipes from './components/Recipes';
 
 class App extends Component {
-  callYelp = (term, location) => {
-    this.props.fetchYelpRequest(term, location).then((data) => {
-      console.log(data);
-    });
-  }
+
   render() {
+
+    const { history, search } = this.props;
+
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
@@ -23,19 +22,17 @@ class App extends Component {
             FoodWikipedia
           </Link>
         </header>
-        <span
-          onClick={() => this.callYelp('sushi', 'toronto')}
-        >
-          CAll YELP
-        </span>
         <div className="container-fluid">
           <div className="row">
             <div className="col-2 bd-sidebar">
-              <SearchForm />
-              <button>click</button>
+              <SearchForm history={ history } />
             </div>
             <div className="col-7">
-              <h2>Search Results For: ChungGookJang</h2>
+              {
+                search.term
+                  ? <h2>Search Results For: { search.term }</h2>
+                  : null
+              }
               <ul className="nav nav-tabs">
                 <li className="nav-item">
                   <NavLink
@@ -61,17 +58,15 @@ class App extends Component {
                 <li className="nav-item">
                   <NavLink
                     to="/news"
-                    className="nav-link disabled">
+                    className="nav-link">
                     News
                   </NavLink>
                 </li>
               </ul>
-              {
-                this.props.yelp.status === 'SUCCESS' &&
-                <Restaurants
-                  businesses={this.props.yelp.payload.businesses}
-                />
-              }
+              <Switch>
+                <Route path="/recipes" component={ Recipes } />
+                <Route exact path="/restaurants" component={ Restaurants } />
+              </Switch>
             </div>
           </div>
         </div>
@@ -82,15 +77,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    yelp: state.yelp
+    search: state.search
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchYelpRequest: (term, location) => {
-      return dispatch(actions.fetchYelpRequest(term, location));
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
