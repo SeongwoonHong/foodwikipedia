@@ -5,7 +5,8 @@ import Youtube from './Youtube';
 
 function mapStateToProps(state) {
   return {
-    youtube: state.youtube
+    youtube: state.youtube,
+    search: state.search
   };
 }
 

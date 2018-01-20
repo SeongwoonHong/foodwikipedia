@@ -5,9 +5,12 @@ import './Youtube.css';
 class Youtube extends Component {
   componentDidMount = () => {
     const { search } = this.props;
-    this.props.fetchYoutubeRequest('sushi').then((res) => {
-      console.log(res.payload.items);
-    });
+    if (search.term && !this.props.youtube.payload) {
+      this.props.fetchYoutubeRequest('sushi').then((res) => {
+        // console.log(res.payload.items);
+      });
+    }
+
   }
   renderYoutube = () => {
     return this.props.youtube.payload.items.map((item, index) => {

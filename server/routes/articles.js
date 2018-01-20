@@ -9,7 +9,6 @@ router.post('/', async (req, res) => {
   cbcUrl += `sources=${source}&q=${keyword}&apiKey=${cbcApiKey}&language=en`;
   try {
     const data = await axios.get(cbcUrl);
-    console.log(data.data);
     return res.json(data.data);
   } catch(e) {
     return res.status(404).json(e);
