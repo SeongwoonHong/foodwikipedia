@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
-    "express": "^4.16.2"
+    "circular-json": "^0.5.1",
+    "express": "^4.16.2",
+    "yelp": "^1.0.2"
   }
 }

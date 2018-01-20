@@ -4,17 +4,17 @@ import { Link, NavLink } from 'react-router-dom';
 import * as actions from './actions'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import Restaurants from './components/Restaurants';
 import './App.css';
 
 import SearchForm from './components/SearchForm';
 
 class App extends Component {
-
-  componentDidMount() {
-    axios.get('https://api.edamam.com/search?q=chicken&app_id=a710f53c&app_key=bb0272b8ff5e348bd73cf22523773c77&from=0&to=3&calories=gte%20591,%20lte%20722&health=alcohol-free')
-    .then(res => console.log(res));
+  callYelp = (term, location) => {
+    this.props.fetchYelpRequest(term, location).then((data) => {
+      console.log(data);
+    });
   }
-
   render() {
     return (
       <div className="App">
@@ -23,11 +23,33 @@ class App extends Component {
             FoodWikipedia
           </Link>
         </header>
+        <span
+          onClick={() => this.callYelp('sushi', 'toronto')}
+        >
+          CAll YELP
+        </span>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-3 bd-sidebar">
-              <SearchForm />
-              <button onClick={this.props.fetchWatsonRequest()}>click</button>
+            <div className="col-2 bd-sidebar">
+              <form>
+                <input
+                  type="text"
+                  placeholder="Enter the food name"
+                  className="form-control" />
+                <p>or</p>
+                <div className="input-group mb-3">
+                  <div className="custom-file">
+                    <input type="file" className="custom-file-input" id="inputGroupFile02" />
+                    <label className="custom-file-label" htmlFor="inputGroupFile02">
+                      Choose file
+                    </label>
+                  </div>
+                </div>
+              </form>
+              <div className="col-3 bd-sidebar">
+                <SearchForm />
+                <button onClick={this.props.fetchWatsonRequest()}>click</button>
+              </div>
             </div>
             <div className="col-7">
               <h2>Search Results For: ChungGookJang</h2>
@@ -61,6 +83,12 @@ class App extends Component {
                   </NavLink>
                 </li>
               </ul>
+              {
+                this.props.yelp.status === 'SUCCESS' &&
+                <Restaurants
+                  businesses={this.props.yelp.payload.businesses}
+                />
+              }
             </div>
           </div>
         </div>
@@ -71,26 +99,15 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    watson: state.watson
+    yelp: state.yelp
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchWatsonRequest: () => {
-      // UserList() {
-      // fetch('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=8d7aced8efa9ce11cca985d203dce5989cc20148&url=http://img.hankyung.com/photo/201710/01.14980249.1.jpg&version=2016-05-20&classifier_ids=food',
-      //   { method: 'get', mode: 'no-cors', })
-      //   .then((resp) => {
-      //   console.log(resp);
-      // });
-
-      // $.getJSON('https://randomuser.me/api/')
-      //   .then(({ results }) => {});
-
-      dispatch(actions.fetchWatsonRequest());
+    fetchYelpRequest: (term, location) => {
+      return dispatch(actions.fetchYelpRequest(term, location));
     }
-  };
-};
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
