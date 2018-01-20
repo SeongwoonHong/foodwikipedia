@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 import * as actions from './actions'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -18,28 +19,46 @@ class App extends Component {
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
-          <a className="navbar-brand">FoodWikipedia</a>
+          <Link to="/">
+            FoodWikipedia
+          </Link>
         </header>
         <div className="container-fluid">
           <div className="row">
             <div className="col-3 bd-sidebar">
               <SearchForm />
-              <button onclick={this.props.fetchWatsonRequest()}>click</button>
+              <button onClick={this.props.fetchWatsonRequest()}>click</button>
             </div>
             <div className="col-7">
               <h2>Search Results For: ChungGookJang</h2>
               <ul className="nav nav-tabs">
                 <li className="nav-item">
-                  <a className="nav-link active">Restaurants</a>
+                  <NavLink
+                    to="/restaurants"
+                    className="nav-link">
+                    Restaurants
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link">Recipes</a>
+                  <NavLink
+                    to="/recipes"
+                    className="nav-link">
+                    Recipes
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link">Ingredients</a>
+                  <NavLink
+                    to="/nutrition"
+                    className="nav-link">
+                    Nutrition
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link disabled">News</a>
+                  <NavLink
+                    to="/news"
+                    className="nav-link disabled">
+                    News
+                  </NavLink>
                 </li>
               </ul>
             </div>

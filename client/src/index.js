@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
 import reducers from './reducers';
+import { BrowserRouter, Route } from 'react-router-dom';
 import './index.css';
 
 import App from './App';
@@ -21,7 +22,9 @@ window.store = store;
 
 ReactDOM.render(
   <Provider store={ store }>
-    <App/>
+    <BrowserRouter>
+      <Route path="/" component={App} />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );
