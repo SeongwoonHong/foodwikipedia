@@ -1,16 +1,12 @@
+.navbar-brand {
+    color: #fff !important;
+}
 .bd-sidebar {
     border-right: 1px solid rgba(0,0,0,.1);
     position: sticky;
     top: 4rem;
     z-index: 1000;
     height: calc(100vh - 4rem);
-}
-.bd-sidebar > form > input {
-    margin-top: 15px;
-}
-.bd-sidebar > form > p {
-    margin: 10px;
-    text-align: center;
 }
 .col-10 > h2 {
     margin: 15px;

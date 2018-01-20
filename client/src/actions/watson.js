@@ -14,12 +14,12 @@ export function fetchWatsonUrlRequest() {
   };
 }
 
-export function fetchWatsonFileRequest() {
+export function fetchWatsonFileRequest(value) {
   return (dispatch) => {
-    const params = {
-      url: 'http://img.hankyung.com/photo/201710/01.14980249.1.jpg'
-    }
-    return axios.post('/watson/url', params)
+    // const params = {
+    //   url: 'http://img.hankyung.com/photo/201710/01.14980249.1.jpg'
+    // }
+    return axios.post('/watson/file', value)
       .then((response) => {
       }).catch((error) => {
         console.log(error);

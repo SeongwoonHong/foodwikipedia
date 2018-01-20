@@ -1,53 +1,84 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as actions from './actions';
-import logo from './logo.svg';
-import 'bootstrap/dist/css/bootstrap.css'
+import { Link, NavLink } from 'react-router-dom';
+import * as actions from './actions'
+import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.css';
+import Restaurants from './components/Restaurants';
 import './App.css';
 
+import SearchForm from './components/SearchForm';
+
 class App extends Component {
+  callYelp = (term, location) => {
+    this.props.fetchYelpRequest(term, location).then((data) => {
+      console.log(data);
+    });
+  }
+
+  onSubmitHandler = (term, location) => {
+    this.props.fetchWatsonUrlRequest(term, location).then((data) => {
+    });
+  }
   render() {
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
-          <a className="navbar-brand" href="#">FoodWikipedia</a>
+          <Link to="/">
+            FoodWikipedia
+          </Link>
         </header>
+        <span
+          onClick={() => this.callYelp('sushi', 'toronto')}
+        >
+          CAll YELP
+        </span>
         <div className="container-fluid">
           <div className="row">
             <div className="col-2 bd-sidebar">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Enter the food name"
-                  className="form-control" />
-                <p>or</p>
-                <div className="input-group mb-3">
-                  <div className="custom-file">
-                    <input type="file" className="custom-file-input" id="inputGroupFile02" />
-                    <label className="custom-file-label" for="inputGroupFile02">
-                      Choose file
-                    </label>
-                  </div>
-                </div>
-              </form>
-              <button onclick={this.props.fetchWatsonUrlRequest()}>click</button>
+              <SearchForm
+                onSubmit={this.props.onSubmitHandler}
+                fetchWatsonFileRequest={this.props.fetchWatsonFileRequest}
+              />
             </div>
-            <div className="col-10">
+            <div className="col-7">
               <h2>Search Results For: ChungGookJang</h2>
               <ul className="nav nav-tabs">
                 <li className="nav-item">
-                  <a className="nav-link active" href="#">Restaurants</a>
+                  <NavLink
+                    to="/restaurants"
+                    className="nav-link">
+                    Restaurants
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Recipes</a>
+                  <NavLink
+                    to="/recipes"
+                    className="nav-link">
+                    Recipes
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Ingredients</a>
+                  <NavLink
+                    to="/nutrition"
+                    className="nav-link">
+                    Nutrition
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link disabled" href="#">News</a>
+                  <NavLink
+                    to="/news"
+                    className="nav-link disabled">
+                    News
+                  </NavLink>
                 </li>
               </ul>
+              {
+                this.props.yelp.status === 'SUCCESS' &&
+                <Restaurants
+                  businesses={this.props.yelp.payload.businesses}
+                />
+              }
             </div>
           </div>
         </div>
@@ -58,26 +89,21 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    watson: state.watson
+    yelp: state.yelp
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
+    fetchYelpRequest: (term, location) => {
+      return dispatch(actions.fetchYelpRequest(term, location));
+    },
     fetchWatsonUrlRequest: () => {
-      // UserList() {
-      // fetch('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=8d7aced8efa9ce11cca985d203dce5989cc20148&url=http://img.hankyung.com/photo/201710/01.14980249.1.jpg&version=2016-05-20&classifier_ids=food',
-      //   { method: 'get', mode: 'no-cors', })
-      //   .then((resp) => {
-      //   console.log(resp);
-      // });
-
-          // $.getJSON('https://randomuser.me/api/')
-          //   .then(({ results }) => {});
-
-      dispatch(actions.fetchWatsonUrlRequest());
+      return dispatch(actions.fetchWatsonUrlRequest());
+    },
+    fetchWatsonFileRequest: (value) => {
+      console.log(value);
+      return dispatch(actions.fetchWatsonFileRequest(value));
     }
-  };
-};
-
+  }
+}
 export default connect(mapStateToProps, mapDispatchToProps)(App);
