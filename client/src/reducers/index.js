@@ -5,12 +5,7 @@ import watsonReducer from './watsonReducer';
 import yelpReducer from './yelpReducer';
 
 export default combineReducers({
-<<<<<<< HEAD
   watson: watsonReducer,
-  yelp: yelpReducer
+  yelp: yelpReducer,
+  search: searchReducer
 });
-=======
-  search: searchReducer,
-  watson: watsonReducer
-});
->>>>>>> master
