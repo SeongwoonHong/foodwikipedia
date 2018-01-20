@@ -1,0 +1,9 @@
+.list-group {
+    flex-direction: row !important;
+    margin: 5px;
+}
+.restaurant-image {
+    width: 100px;
+    height: 120px;
+    display: inline-block;
+}

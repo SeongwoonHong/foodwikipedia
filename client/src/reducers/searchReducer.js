@@ -6,6 +6,7 @@ const initialState = {
     term: '',
     file: '',
     type: 'text',
+    recipes: [],
   }
 };
 

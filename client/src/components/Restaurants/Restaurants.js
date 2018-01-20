@@ -1,13 +1,40 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+
 import Restaurant from './Restaurant/Restaurant';
 
 class Restaurants extends Component {
+
+  componentDidMount() {
+
+    const { search, fetchYelpRequest } = this.props;
+
+    if (search.term) {
+      fetchYelpRequest(search.term, 'toronto');
+    }
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    console.log(nextProps);
+
+    const { search, fetchYelpRequest } = this.props;
+
+    if (nextProps.search.term !== search.term) {
+      fetchYelpRequest(nextProps.search.term, 'toronto');
+    }
+
+  }
+
   render() {
+
+    const { yelp } = this.props;
+    console.dir(yelp);
+
     return (
       <div>
         {
-          this.props.businesses.map((business, index) => {
+          yelp.payload && yelp.payload.map((business, index) => {
             return (
               <Restaurant
                 categories={ business.categories }
@@ -27,11 +54,5 @@ class Restaurants extends Component {
     );
   }
 }
-Restaurants.defaultProps = {
-  businesses: []
-};
 
-Restaurants.propTypes = {
-  businesses: PropTypes.array
-};
 export default Restaurants;
