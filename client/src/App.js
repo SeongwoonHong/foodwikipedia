@@ -30,7 +30,7 @@ class App extends Component {
                   </div>
                 </div>
               </form>
-              <button onclick={this.props.fetchWatsonRequest()}>click</button>
+              <button onclick={this.props.fetchWatsonUrlRequest()}>click</button>
             </div>
             <div className="col-10">
               <h2>Search Results For: ChungGookJang</h2>
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchWatsonRequest: () => {
+    fetchWatsonUrlRequest: () => {
       // UserList() {
       // fetch('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=8d7aced8efa9ce11cca985d203dce5989cc20148&url=http://img.hankyung.com/photo/201710/01.14980249.1.jpg&version=2016-05-20&classifier_ids=food',
       //   { method: 'get', mode: 'no-cors', })
@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch) => {
           // $.getJSON('https://randomuser.me/api/')
           //   .then(({ results }) => {});
 
-      dispatch(actions.fetchWatsonRequest());
+      dispatch(actions.fetchWatsonUrlRequest());
     }
   };
 };
