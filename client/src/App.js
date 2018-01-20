@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Switch, Route } from 'react-router-dom';
 import Articles from './components/Articles';
 import Restaurants from './components/Restaurants';
+import Youtube from './components/Youtube';
 import './App.css';
 
 import SearchForm from './components/SearchForm';
@@ -67,6 +68,13 @@ class App extends Component {
                     Articles
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/youtube"
+                    className="nav-link">
+                    Youtube
+                  </NavLink>
+                </li>
               </ul>
               {/* {
                 this.props.yelp.status === 'SUCCESS' &&
@@ -75,8 +83,9 @@ class App extends Component {
                 />
               } */}
               <Switch>
-                <Route exact path="/restaurants" render={() => this.props.yelp.status === 'SUCCESS' && <Restaurants businesses={this.props.yelp.payload.businesses} />} />
-                <Route exact path="/news" component={Articles} />
+                <Route path="/restaurants" render={() => this.props.yelp.status === 'SUCCESS' && <Restaurants businesses={this.props.yelp.payload.businesses} />} />
+                <Route path="/news" component={Articles} />
+                <Route path="/youtube" component={Youtube} />
               </Switch>
             </div>
           </div>
@@ -88,7 +97,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    yelp: state.yelp
+    yelp: state.yelp,
+    youtube: state.youtube
   };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -5,7 +5,6 @@ import Article from './Article/Article';
 class Articles extends Component {
   componentDidMount = () => {
     const { search } = this.props; // 나중에 search.term으로 밑에 api콜 해야함.
-    console.log('articles component did mount')
     if (!this.props.articles.payload) {
       this.props.fetchArticlesRequest('sushi');
     }
@@ -29,7 +28,7 @@ class Articles extends Component {
     return (
       <div id="news">
         {
-          this.props.articles.status === 'WAITING' && console.log('...searching...') // 여기에다가 로딩서클 나중에..
+          this.props.articles.status === 'WAITING' && <span>...LOADING...</span> // 여기에다가 로딩서클 나중에..
         }
         {
           this.props.articles.status === 'SUCCESS' && this.renderArticles()
