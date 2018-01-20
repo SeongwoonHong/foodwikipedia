@@ -31,25 +31,8 @@ class App extends Component {
         <div className="container-fluid">
           <div className="row">
             <div className="col-2 bd-sidebar">
-              <form>
-                <input
-                  type="text"
-                  placeholder="Enter the food name"
-                  className="form-control" />
-                <p>or</p>
-                <div className="input-group mb-3">
-                  <div className="custom-file">
-                    <input type="file" className="custom-file-input" id="inputGroupFile02" />
-                    <label className="custom-file-label" htmlFor="inputGroupFile02">
-                      Choose file
-                    </label>
-                  </div>
-                </div>
-              </form>
-              <div className="col-3 bd-sidebar">
-                <SearchForm />
-                <button>click</button>
-              </div>
+              <SearchForm />
+              <button>click</button>
             </div>
             <div className="col-7">
               <h2>Search Results For: ChungGookJang</h2>
