@@ -19,6 +19,10 @@ class SearchForm extends Component {
 
   };
 
+  onSubmitHandler = (e) => {
+    e.preventDefault();
+  };
+
   render() {
 
     const {
@@ -26,7 +30,10 @@ class SearchForm extends Component {
     } = this.props;
 
     return (
-      <form className="SearchForm">
+      <form
+        noValidate
+        className="SearchForm"
+        onSubmit={ this.onSubmitHandler }>
         <div
           className="btn-group"
           role="group"
