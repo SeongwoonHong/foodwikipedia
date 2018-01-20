@@ -25,7 +25,7 @@ export function fetchYoutubeRequest(term) {
   return (dispatch) => {
     dispatch(fetchYoutube());
 
-    return axios.post('/youtube', { term }).then((res) => {
+    return axios.post('/api/youtube', { term }).then((res) => {
       return dispatch(fetchYoutubeSuccess(res.data));
     }).catch((e) => {
       return dispatch(fetchYoutubeFailure(e));

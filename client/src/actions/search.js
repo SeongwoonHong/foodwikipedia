@@ -13,3 +13,10 @@ export const registerSearchTerm = (type, value) => {
     payload: { type, value },
   }
 };
+
+export const executeSearch = () => {
+  return (dispatch, getState) => {
+    const { search } = getState();
+    console.log(search.term, search.type);
+  };
+};

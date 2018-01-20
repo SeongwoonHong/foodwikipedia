@@ -4,6 +4,16 @@ import './SearchForm.css'
 
 class SearchForm extends Component {
 
+  componentWillReceiveProps(nextProps) {
+    const { history, search, executeSearch } = this.props;
+    if (nextProps.search.term !== search.term) {
+      executeSearch();
+      if (history.location.pathname === '/') {
+        history.push('/restaurants');
+      }
+    }
+  }
+
   onImageUpload = (e) => {
 
     this.setState({ isLoading: true });
@@ -20,14 +30,17 @@ class SearchForm extends Component {
   };
 
   onSubmitHandler = (e) => {
+
     e.preventDefault();
+
+    const { registerSearchTerm }  = this.props;
+    registerSearchTerm('term', document.getElementById('searchTerm').value);
+
   };
 
   render() {
 
-    const {
-      search, changeSearchType
-    } = this.props;
+    const { search, changeSearchType } = this.props;
 
     return (
       <form
@@ -56,13 +69,10 @@ class SearchForm extends Component {
             ? (
               <input
                 type="text"
+                id="searchTerm"
                 placeholder="Enter the food name"
                 className="form-control"
-                name="term"
-                value={ search.term }
-                onChange={ (e) => {
-                  this.props.registerSearchTerm(e.target.name, e.target.value)
-                } }/>
+                name="term" />
               )
             : (
               <div className="input-group mb-3">
@@ -89,6 +99,10 @@ class SearchForm extends Component {
               </div>
             )
         }
+        <button
+          type="submit">
+          click
+        </button>
       </form>
     );
   }

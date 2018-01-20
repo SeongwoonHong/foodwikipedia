@@ -25,7 +25,7 @@ export function fetchArticlesRequest(keyword) {
   return (dispatch) => {
     dispatch(fetchArticles());
 
-    return axios.post('/articles', { keyword }).then((res) => {
+    return axios.post('/api/articles', { keyword }).then((res) => {
       return dispatch(fetchArticlesSuccess(res.data));
     }).catch((e) => {
       return dispatch(fetchArticlesFailure(e));

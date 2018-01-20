@@ -12,7 +12,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     changeSearchType: (type) => dispatch(actions.changeSearchType(type)),
-    registerSearchTerm: (type, value) => dispatch(actions.registerSearchTerm(type, value))
+    registerSearchTerm: (type, value) => dispatch(actions.registerSearchTerm(type, value)),
+    executeSearch: () => dispatch(actions.executeSearch())
   };
 }
 

@@ -1,24 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import * as actions from './actions'
-import axios from 'axios';
+import { Link, NavLink, Route, Switch } from 'react-router-dom';
+import * as actions from './actions';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Switch, Route } from 'react-router-dom';
 import Articles from './components/Articles';
 import Restaurants from './components/Restaurants';
 import Youtube from './components/Youtube';
 import './App.css';
-
 import SearchForm from './components/SearchForm';
+import Recipes from './components/Recipes';
 
 class App extends Component {
-  callYelp = (term, location) => {
-    this.props.fetchYelpRequest(term, location).then((data) => {
-      // console.log(data);
-    });
-  }
+
   render() {
+
+    const { history, search } = this.props;
+
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
@@ -26,19 +23,17 @@ class App extends Component {
             FoodWikipedia
           </Link>
         </header>
-        <span
-          onClick={() => this.callYelp('sushi', 'toronto')}
-        >
-          CAll YELP
-        </span>
         <div className="container-fluid">
           <div className="row">
             <div className="col-2 bd-sidebar">
-              <SearchForm />
-              <button>click</button>
+              <SearchForm history={ history } />
             </div>
             <div className="col-7">
-              <h2>Search Results For: ChungGookJang</h2>
+              {
+                search.term
+                  ? <h2>Search Results For: { search.term }</h2>
+                  : null
+              }
               <ul className="nav nav-tabs">
                 <li className="nav-item">
                   <NavLink
@@ -65,25 +60,20 @@ class App extends Component {
                   <NavLink
                     to="/news"
                     className="nav-link">
-                    Articles
+                    News
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/youtube"
                     className="nav-link">
-                    Youtube
+                    Videos
                   </NavLink>
                 </li>
               </ul>
-              {/* {
-                this.props.yelp.status === 'SUCCESS' &&
-                <Restaurants
-                  businesses={this.props.yelp.payload.businesses}
-                />
-              } */}
               <Switch>
-                <Route path="/restaurants" render={() => this.props.yelp.status === 'SUCCESS' && <Restaurants businesses={this.props.yelp.payload.businesses} />} />
+                <Route path="/recipes" component={ Recipes } />
+                <Route exact path="/restaurants" component={ Restaurants } />
                 <Route path="/news" component={Articles} />
                 <Route path="/youtube" component={Youtube} />
               </Switch>
@@ -97,16 +87,9 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    yelp: state.yelp,
+    search: state.search,
     youtube: state.youtube
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchYelpRequest: (term, location) => {
-      return dispatch(actions.fetchYelpRequest(term, location));
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
