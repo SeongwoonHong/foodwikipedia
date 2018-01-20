@@ -73,7 +73,7 @@ class App extends Component {
               </ul>
               <Switch>
                 <Route path="/recipes" component={ Recipes } />
-                <Route exact path="/restaurants" component={ Restaurants } />
+                <Route path="/restaurants" component={ Restaurants } />
                 <Route path="/news" component={Articles} />
                 <Route path="/youtube" component={Youtube} />
               </Switch>
