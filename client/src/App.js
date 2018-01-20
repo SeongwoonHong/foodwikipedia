@@ -48,7 +48,7 @@ class App extends Component {
               </form>
               <div className="col-3 bd-sidebar">
                 <SearchForm />
-                <button onClick={this.props.fetchWatsonRequest()}>click</button>
+                <button>click</button>
               </div>
             </div>
             <div className="col-7">
