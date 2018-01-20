@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 import axios from 'axios';
-
 import logo from './logo.svg';
+import Restaurants from './components/Restaurants';
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
-
-
 class App extends Component {
   callYelp = (term, location) => {
-    axios.post('/yelp', { term, location })
-      .then((res) => console.log(res))
-      .catch((e) => console.warn(e));
+    this.props.fetchYelpRequest(term, location).then((data) => {
+      console.log(data);
+    });
   }
   render() {
     return (
@@ -42,6 +42,7 @@ class App extends Component {
                   </div>
                 </div>
               </form>
+              <button>click</button>
             </div>
             <div className="col-10">
               <h2>Search Results For: ChungGookJang</h2>
@@ -59,6 +60,12 @@ class App extends Component {
                   <a className="nav-link disabled" href="#">News</a>
                 </li>
               </ul>
+              {
+                this.props.yelp.status === 'SUCCESS' &&
+                <Restaurants
+                  businesses={this.props.yelp.payload.businesses}
+                />
+              }
             </div>
           </div>
         </div>
@@ -67,4 +74,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    yelp: state.yelp
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchYelpRequest: (term, location) => {
+      return dispatch(actions.fetchYelpRequest(term, location));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
