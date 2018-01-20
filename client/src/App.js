@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { Link, NavLink, Route, Switch } from 'react-router-dom';
 import * as actions from './actions';
 import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
-
-import SearchForm from './components/SearchForm';
+import Articles from './components/Articles';
 import Restaurants from './components/Restaurants';
+import Youtube from './components/Youtube';
+import './App.css';
+import SearchForm from './components/SearchForm';
 import Recipes from './components/Recipes';
 
 class App extends Component {
@@ -62,10 +63,19 @@ class App extends Component {
                     News
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/youtube"
+                    className="nav-link">
+                    Videos
+                  </NavLink>
+                </li>
               </ul>
               <Switch>
                 <Route path="/recipes" component={ Recipes } />
-                <Route exact path="/restaurants" component={ Restaurants } />
+                <Route path="/restaurants" component={ Restaurants } />
+                <Route path="/news" component={Articles} />
+                <Route path="/youtube" component={Youtube} />
               </Switch>
             </div>
           </div>
@@ -77,7 +87,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    search: state.search
+    search: state.search,
+    youtube: state.youtube
   };
 };
 
