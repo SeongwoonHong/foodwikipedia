@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './actions';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
@@ -28,6 +30,7 @@ class App extends Component {
                   </div>
                 </div>
               </form>
+              <button onclick={this.props.fetchWatsonRequest()}>click</button>
             </div>
             <div className="col-10">
               <h2>Search Results For: ChungGookJang</h2>
@@ -53,4 +56,28 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    watson: state.watson
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchWatsonRequest: () => {
+      // UserList() {
+      // fetch('https://gateway-a.watsonplatform.net/visual-recognition/api/v3/classify?api_key=8d7aced8efa9ce11cca985d203dce5989cc20148&url=http://img.hankyung.com/photo/201710/01.14980249.1.jpg&version=2016-05-20&classifier_ids=food',
+      //   { method: 'get', mode: 'no-cors', })
+      //   .then((resp) => {
+      //   console.log(resp);
+      // });
+
+          // $.getJSON('https://randomuser.me/api/')
+          //   .then(({ results }) => {});
+
+      dispatch(actions.fetchWatsonRequest());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
