@@ -23,6 +23,21 @@ app.post('/yelp', async (req, res) => {
     return res.status(404).send(e);
   }
 })
+
+app.post('/articles', async (req, res) => {
+  let cbcUrl = 'https://newsapi.org/v2/everything?';
+  const cbcApiKey = '71c58369a2024ef69fa7c0fec1aa2fe1';
+  const keyword = req.body.keyword;
+  const source = 'buzzfeed';
+  cbcUrl += `sources=${source}&q=${keyword}&apiKey=${cbcApiKey}&language=en`;
+  try {
+    const data = await axios.get(cbcUrl);
+    return res.json(data.data);
+  } catch(e) {
+    return res.status(404).json(e);
+  }
+});
+
 app.listen(4000, () => {
   console.log('Express is running on port 4000');
 });

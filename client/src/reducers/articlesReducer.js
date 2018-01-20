@@ -6,18 +6,18 @@ const initialState = {
   payload: null
 };
 
-export default function yelpReducer(state = initialState, action) {
+export default function articlesReducer(state = initialState, action) {
   switch (action.type) {
-    case types.FETCH_YELP:
+    case types.FETCH_ARTICLES:
       return {
         status: 'WAITING'
       };
-    case types.FETCH_YELP_SUCCESS:
+    case types.FETCH_ARTICLES_SUCCESS:
       return {
         status: 'SUCCESS',
         payload: action.payload
       }
-    case types.FETCH_YELP_FAILURE:
+    case types.FETCH_ARTICLES_FAILURE:
       return {
         status: 'FAILURE',
         payload: action.error

@@ -4,6 +4,8 @@ import { Link, NavLink } from 'react-router-dom';
 import * as actions from './actions'
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Switch, Route } from 'react-router-dom';
+import Articles from './components/Articles';
 import Restaurants from './components/Restaurants';
 import './App.css';
 
@@ -12,7 +14,7 @@ import SearchForm from './components/SearchForm';
 class App extends Component {
   callYelp = (term, location) => {
     this.props.fetchYelpRequest(term, location).then((data) => {
-      console.log(data);
+      // console.log(data);
     });
   }
   render() {
@@ -61,17 +63,21 @@ class App extends Component {
                 <li className="nav-item">
                   <NavLink
                     to="/news"
-                    className="nav-link disabled">
-                    News
+                    className="nav-link">
+                    Articles
                   </NavLink>
                 </li>
               </ul>
-              {
+              {/* {
                 this.props.yelp.status === 'SUCCESS' &&
                 <Restaurants
                   businesses={this.props.yelp.payload.businesses}
                 />
-              }
+              } */}
+              <Switch>
+                <Route exact path="/restaurants" render={() => this.props.yelp.status === 'SUCCESS' && <Restaurants businesses={this.props.yelp.payload.businesses} />} />
+                <Route exact path="/news" component={Articles} />
+              </Switch>
             </div>
           </div>
         </div>
