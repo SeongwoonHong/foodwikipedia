@@ -18,7 +18,7 @@ class Recipe extends Component {
         <img className="recipe-image" src={recipe.image_url} alt={recipe.title} />
         <div href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
           <div className="mb-1 recipe-title">{ recipe.title }</div>
-          <div className="recipe-social-rank">social rank: { recipe.social_rank }</div>
+          <div className="recipe-social-rank">social rank: { Math.round(recipe.social_rank * 100) / 100 }</div>
           <a href={recipe.source_url} target="_blank" className="recipe-url">
             Go to recipe
           </a>
