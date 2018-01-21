@@ -48,7 +48,7 @@ app.post('/watson/file', upload.any(), async (req, res) => {
   const data = req.body.images_file.replace(/^data:image\/\w+;base64,/, "");
   const buff = Buffer.from(data, 'base64');
 
-  var visual_recognition = watson.visual_recognition({
+  const visual_recognition = watson.visual_recognition({
   api_key: '8d7aced8efa9ce11cca985d203dce5989cc20148',
   version: 'v3',
   version_date: '2016-05-20'

@@ -1,20 +1,31 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import animate from 'gsap-promise';
 import './Article.css';
 
 class Article extends Component {
+  componentDidMount = () => {
+    this.animateIn();
+  }
+  animateIn = () => {
+    const { delay = 0 } = this.props;
+    return animate.from(this.component, 1.5, { autoAlpha: 0, y: '-20px', ease: Bounce.easeOut, delay: delay });
+  }
   render() {
     const { author, description, title, url, urlToImage, date } = this.props;
     return (
-      <div className="article">
+      <div className="article" ref={el => this.component = el}>
         <div className="list-group">
           <div href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
             <div className="d-flex w-100 justify-content-between">
               <a href={url} className="mb-1 article-url">{ title }</a>
-              <small>{ author }</small>
             </div>
-            <p className="mb-1">{ description }</p>
-            <div>{ date }</div>
+            <p className="mb-1 article-description">{ description }</p>
+            <div className="article-footer">
+              <div className="article-date">{ date.substring(0, 10) }</div>
+              <span className="article-author">{ author }</span>
+            </div>
           </div>
         </div>
       </div>

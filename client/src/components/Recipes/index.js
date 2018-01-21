@@ -12,7 +12,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchRecipes: (term) => dispatch(actions.fetchRecipes(term))
+    fetchRecipesRequest: (term) => dispatch(actions.fetchRecipesRequest(term))
   };
 }
 

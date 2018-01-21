@@ -37,8 +37,12 @@ class SearchForm extends Component {
     e.preventDefault();
 
     const { registerSearchTerm }  = this.props;
-    registerSearchTerm('term', document.getElementById('searchTerm').value);
-
+    let searchValue = document.getElementById('searchTerm').value;
+    if (searchValue.trim()) {
+      registerSearchTerm('term', searchValue.trim());
+    } else {
+      document.getElementById('searchTerm').value = '';
+    }
   };
 
 
@@ -71,12 +75,20 @@ class SearchForm extends Component {
         {
           this.props.search.type === 'text'
             ? (
-              <input
-                type="text"
-                id="searchTerm"
-                placeholder="Enter the food name"
-                className="form-control"
-                name="term" />
+              <p style={{'display': 'flex', 'justifyContent': 'space-evenly'}}>
+                <input
+                  type="text"
+                  id="searchTerm"
+                  placeholder="Enter the food name"
+                  className="form-control"
+                  name="term" />
+                  <button
+                    type="submit"
+                    className="btn btn-info"
+                    >
+                      click
+                    </button>
+              </p>
               )
             : (
               <div className="input-group mb-3">
@@ -100,13 +112,16 @@ class SearchForm extends Component {
                     Choose file
                   </label>
                 </div>
+                <button
+                  type="submit"
+                  className="btn btn-info"
+                  >
+                    click
+                  </button>
               </div>
             )
         }
-        <button
-          type="submit">
-          click
-        </button>
+
       </form>
     );
   }

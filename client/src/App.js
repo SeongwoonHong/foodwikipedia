@@ -9,6 +9,7 @@ import Youtube from './components/Youtube';
 import './App.css';
 import SearchForm from './components/SearchForm';
 import Recipes from './components/Recipes';
+import Nutrition from './components/Nutrition/Nutrition';
 
 class App extends Component {
   callYelp = (term, location) => {
@@ -32,17 +33,16 @@ class App extends Component {
           </Link>
         </header>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-2 bd-sidebar">
+          <div className="contents">
+            <div className="header">
               <SearchForm
-                fetchWatsonFileRequest={this.fetchWatsonFileRequest}
                 history={ history }
-              />
+                fetchWatsonFileRequest={this.fetchWatsonFileRequest}/>
             </div>
-            <div className="col-7">
+            <div className="body">
               {
                 search.term
-                  ? <h2>Search Results For: { search.term }</h2>
+                  ? <div className="search-result">{ search.term.toUpperCase() } RESULTS</div>
                   : null
               }
               <ul className="nav nav-tabs">
@@ -87,6 +87,7 @@ class App extends Component {
                 <Route path="/restaurants" component={ Restaurants } />
                 <Route path="/news" component={Articles} />
                 <Route path="/youtube" component={Youtube} />
+                <Route path="/Nutrition" component={Nutrition} />
               </Switch>
             </div>
           </div>
