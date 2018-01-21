@@ -22,7 +22,8 @@ class Restaurant extends Component {
             <div className="mb-1 restaurant-title">{ name }</div>
             <small>{ rating }</small>
           </div>
-          {
+          <div>
+            {
               categories.map((category) => {
                 return (
                   <span
@@ -33,10 +34,11 @@ class Restaurant extends Component {
                   </span>
                 );
               })
-          }
+            }
+          </div>
           <div className="restaurant-address">{ location.address1 }</div>
           <div className="restaurant-city">{ location.city }</div>
-          <p>{ phone }</p>
+          <p className="restaurant-phone">{ phone }</p>
         </div>
       </div>
     );

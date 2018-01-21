@@ -95,7 +95,7 @@ class SearchForm extends Component {
                 key="location"
                 required
               />,
-              <p key="p" style={{'display': 'flex', 'justifyContent': 'space-evenly'}}>
+              <p key="p" style={{'display': 'flex', 'justifyContent': 'space-between'}}>
 
                 <input
                   type="text"
