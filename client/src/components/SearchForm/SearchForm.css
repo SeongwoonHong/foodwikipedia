@@ -27,3 +27,6 @@
 .SearchForm .btn {
   vertical-align: top !important;
 }
+.custom-file-input {
+  cursor: pointer;
+}

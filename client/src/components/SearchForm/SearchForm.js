@@ -112,12 +112,6 @@ class SearchForm extends Component {
                     Choose file
                   </label>
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn-info"
-                  >
-                    click
-                  </button>
               </div>
             )
         }

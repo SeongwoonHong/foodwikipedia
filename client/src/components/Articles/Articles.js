@@ -8,7 +8,7 @@ class Articles extends Component {
   componentDidMount = () => {
     const { search } = this.props; // 나중에 search.term으로 밑에 api콜 해야함.
     if (search.term && !this.props.articles.payload) {
-      this.props.fetchArticlesRequest('sushi');
+      this.props.fetchArticlesRequest(search.term);
     }
   }
   componentWillReceiveProps(nextProps) {

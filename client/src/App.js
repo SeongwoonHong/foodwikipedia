@@ -28,7 +28,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="navbar navbar-expand-lg bg-dark">
-          <Link to="/">
+          <Link to="/" style={{'margin': '0 auto'}}>
             FoodWikipedia
           </Link>
         </header>

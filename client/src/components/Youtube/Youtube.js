@@ -9,7 +9,7 @@ class Youtube extends Component {
   componentDidMount = () => {
     const { search } = this.props;
     if (search.term && !this.props.youtube.payload) {
-      this.props.fetchYoutubeRequest('sushi').then((res) => {
+      this.props.fetchYoutubeRequest(search.term).then((res) => {
         // console.log(res.payload.items);
       });
     }
