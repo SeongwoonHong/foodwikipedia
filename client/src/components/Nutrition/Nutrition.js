@@ -5,7 +5,7 @@ import './Nutrition.css';
 
 class Nutrition extends Component {
   componentDidMount = () => {
-    animate.from(this.component, 0.5, { autoAlpha: 0, y: '100%' });
+    animate.from(this.component, 0.5, { autoAlpha: 0 });
   }
   render() {
     return (

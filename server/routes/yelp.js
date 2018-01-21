@@ -6,7 +6,8 @@ const yelpApiKey = 'BqPj5udquNHHVWamBDJFuzguSZPmMxACorv7NqYWz4WVpsxsw1QFu-b06Txb
 
 router.post('/', async (req, res) => {
   const term = req.body.term;
-  const location = req.body.location;
+  const location = req.body.location || 'toronto';
+  console.log('location = ', location);
   try {
     const data = await axios.get(`${yelpApi}?term=${term}&location=${location}`, {
       headers: {

@@ -20,21 +20,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.post('/yelp', async (req, res) => {
-  const term = req.body.term;
-  const location = req.body.location;
-  try {
-    const data = await axios.get(`${yelpApi}?term=${term}&location=${location}`, {
-      headers: {
-        'Authorization': `Bearer ${yelpApiKey}`
-      }
-    });
-    return res.json(data.data);
-  } catch (e) {
-    return res.status(404).send(e);
-  }
-});
-
 app.use('/api', require('./routes'));
 app.post('/watson/url', async (req, res) => {
 

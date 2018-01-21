@@ -29,13 +29,15 @@ class Restaurant extends Component {
                   <span
                     className="mb-1 category"
                     key={category.title}
-                    >
-                      { category.title }
-                    </span>
-                  );
-                })
-              }
+                  >
+                    { category.title }
+                  </span>
+                );
+              })
+            }
           </div>
+          <div className="restaurant-address">{ location.address1 }</div>
+          <div className="restaurant-city">{ location.city }</div>
           <p className="restaurant-phone">{ phone }</p>
         </div>
       </div>

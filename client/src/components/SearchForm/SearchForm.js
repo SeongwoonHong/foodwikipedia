@@ -23,9 +23,6 @@ class SearchForm extends Component {
 
     reader.onloadend = () => {
       this.props.registerSearchTerm('file', reader.result);
-      const fileData = new FormData();
-      fileData.append('images_file', this.props.search.file);
-      this.props.fetchWatsonFileRequest(fileData);
     };
 
     reader.readAsDataURL(image);
@@ -36,12 +33,27 @@ class SearchForm extends Component {
 
     e.preventDefault();
 
-    const { registerSearchTerm }  = this.props;
-    let searchValue = document.getElementById('searchTerm').value;
-    if (searchValue.trim()) {
-      registerSearchTerm('term', searchValue.trim());
-    } else {
-      document.getElementById('searchTerm').value = '';
+    const { search, registerSearchTerm, registerSearchLocation }  = this.props;
+    if (search.type === 'text') {
+      let searchLocation = document.getElementById('searchLocation').value;
+      let searchKeyword = document.getElementById('searchTerm').value;
+      if (searchKeyword.trim() && searchLocation.trim()) {
+        registerSearchTerm('term', searchKeyword.trim());
+        registerSearchTerm('location', searchLocation.trim());
+      } else {
+        document.getElementById('searchTerm').value = '';
+        document.getElementById('searchLocation').value = '';
+      }
+    } else if (search.type === 'file') {
+      const fileData = new FormData();
+      let searchLocation = document.getElementById('searchLocation').value;
+      if (searchLocation.trim()) {
+        fileData.append('images_file', this.props.search.file);
+        registerSearchTerm('location', searchLocation.trim());
+        this.props.fetchWatsonFileRequest(fileData);
+      } else {
+        document.getElementById('searchLocation').value = '';
+      }
     }
   };
 
@@ -52,7 +64,6 @@ class SearchForm extends Component {
 
     return (
       <form
-        noValidate
         className="SearchForm"
         onSubmit={ this.onSubmitHandler }>
         <div
@@ -75,21 +86,34 @@ class SearchForm extends Component {
         {
           this.props.search.type === 'text'
             ? (
-              <p style={{'display': 'flex', 'justifyContent': 'space-evenly'}}>
+              [<input
+                type="text"
+                id="searchLocation"
+                placeholder="Enter the location"
+                className="location form-control"
+                name="location"
+                key="location"
+                required
+              />,
+              <p key="p" style={{'display': 'flex', 'justifyContent': 'space-between'}}>
+
                 <input
                   type="text"
                   id="searchTerm"
                   placeholder="Enter the food name"
                   className="form-control"
-                  name="term" />
+                  name="term"
+                  key="term"
+                  required
+                />
                   <button
                     type="submit"
                     className="btn btn-info"
                     >
-                      click
+                      search
                     </button>
               </p>
-              )
+            ])
             : (
               <div className="input-group mb-3">
                 {
@@ -107,10 +131,28 @@ class SearchForm extends Component {
                     accept="image/*"
                     name="file"
                     className="custom-file-input"
+                    required
                     onChange={ this.onImageUpload }/>
                   <label className="custom-file-label" htmlFor="inputGroupFile02">
                     Choose file
                   </label>
+                </div>
+                <div className="location-wrapper">
+                  <input
+                    type="text"
+                    id="searchLocation"
+                    placeholder="Enter the location"
+                    className="location form-control"
+                    name="location"
+                    key="location"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-info"
+                    >
+                      search
+                    </button>
                 </div>
               </div>
             )

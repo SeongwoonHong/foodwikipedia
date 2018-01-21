@@ -11,6 +11,7 @@
     width: 100%;
     font-size: 12px;
 }
+
 .SearchForm > .input-group > img {
     display: block;
     height: 100%;
@@ -27,6 +28,18 @@
 .SearchForm .btn {
   vertical-align: top !important;
 }
+.custom-file {
+  margin-bottom: 5px !important;
+}
 .custom-file-input {
   cursor: pointer;
+}
+.SearchForm .location {
+  width: 100%;
+  margin-bottom: 5px;
+}
+.SearchForm .location-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

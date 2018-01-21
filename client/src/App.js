@@ -42,7 +42,7 @@ class App extends Component {
             <div className="body">
               {
                 search.term
-                  ? <div className="search-result">{ search.term.toUpperCase() } RESULTS</div>
+                  ? <div className="search-result">RESULTS</div>
                   : null
               }
               <ul className="nav nav-tabs">

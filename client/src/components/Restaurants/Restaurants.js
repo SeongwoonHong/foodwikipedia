@@ -9,30 +9,33 @@ class Restaurants extends Component {
 
     const { search, fetchYelpRequest, yelp } = this.props;
     if (search.term && !yelp.payload) {
-      fetchYelpRequest(search.term, 'toronto');
+      fetchYelpRequest(search.term, search.location);
     }
   }
 
   componentWillReceiveProps(nextProps) {
 
     const { search, fetchYelpRequest } = this.props;
-
-    if (nextProps.search.term !== search.term) {
-      fetchYelpRequest(nextProps.search.term, 'toronto');
+    if (search.type === 'file' && search.location && (nextProps.search.term !== search.term || nextProps.search.location !== search.location)) {
+      fetchYelpRequest(nextProps.search.term, nextProps.search.location);
     }
-
+    if (search.type === 'text' && (nextProps.search.term !== search.term || nextProps.search.location !== search.location)) {
+      fetchYelpRequest(nextProps.search.term, nextProps.search.location);
+    }
   }
-
   render() {
 
-    const { yelp } = this.props;
+    const { yelp, search } = this.props;
     return (
       <div>
         {
-          yelp.status === 'INIT' && <EmptyResult />
+          search.status === 'WAITING' || !yelp.payload && yelp.status === 'INIT' && <EmptyResult />
         }
         {
           yelp.status === 'WAITING' && <LoadingCircle />
+        }
+        {
+          search.status === 'WAITING' && <LoadingCircle />
         }
         {
           yelp.payload && yelp.payload.map((business, index) => {

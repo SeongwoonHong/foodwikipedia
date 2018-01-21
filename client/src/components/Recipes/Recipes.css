@@ -1,11 +1,11 @@
 .list-group {
-    flex-direction: row !important;
-    margin: 5px;
+  flex-direction: row !important;
+  margin: 5px;
 }
 .recipe-image {
-    width: 150px;
-    height: 160px;
-    display: inline-block;
+  width: 150px;
+  height: 160px;
+  display: inline-block;
 }
 .recipe-social-rank {
   margin-bottom: 30px;

@@ -17,9 +17,9 @@ class Article extends Component {
     return (
       <div className="article" ref={el => this.component = el}>
         <div className="list-group">
-          <div href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
+          <div className="list-group-item list-group-item-action flex-column align-items-start active">
             <div className="d-flex w-100 justify-content-between">
-              <a href={url} className="mb-1 article-url">{ title }</a>
+              <a href={url} className="mb-1 article-url" target="_blank">{ title }</a>
             </div>
             <p className="mb-1 article-description">{ description }</p>
             <div className="article-footer">
