@@ -51,6 +51,8 @@ class SearchForm extends Component {
         fileData.append('images_file', this.props.search.file);
         registerSearchTerm('location', searchLocation.trim());
         this.props.fetchWatsonFileRequest(fileData);
+      } else {
+        document.getElementById('searchLocation').value = '';
       }
     }
   };
@@ -135,21 +137,23 @@ class SearchForm extends Component {
                     Choose file
                   </label>
                 </div>
-                <input
-                  type="text"
-                  id="searchLocation"
-                  placeholder="Enter the location"
-                  className="location form-control"
-                  name="location"
-                  key="location"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="btn btn-info"
-                  >
-                    search
-                  </button>
+                <div className="location-wrapper">
+                  <input
+                    type="text"
+                    id="searchLocation"
+                    placeholder="Enter the location"
+                    className="location form-control"
+                    name="location"
+                    key="location"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="btn btn-info"
+                    >
+                      search
+                    </button>
+                </div>
               </div>
             )
         }
