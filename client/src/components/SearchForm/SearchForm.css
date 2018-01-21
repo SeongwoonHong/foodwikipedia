@@ -1,5 +1,5 @@
 .SearchForm {
-    padding: 15px 0;
+    padding: 15px 0px 0px 0px;
 }
 .SearchForm > .btn-group {
     display: block;
@@ -16,4 +16,14 @@
     height: 100%;
     margin-bottom: 15px;
     width: 100%;
+}
+.SearchForm .form-control {
+  width: 80%;
+  display: inline-block;
+}
+.SearchForm button {
+  display: inline-block;
+}
+.SearchForm .btn {
+  vertical-align: top !important;
 }

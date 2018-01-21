@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article/Article';
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
+import EmptyResult from '../EmptyResult/EmptyResult';
 
 class Articles extends Component {
   componentDidMount = () => {
@@ -9,8 +11,14 @@ class Articles extends Component {
       this.props.fetchArticlesRequest('sushi');
     }
   }
+  componentWillReceiveProps(nextProps) {
+    const { search, fetchArticlesRequest } = this.props;
+    if (nextProps.search.term !== search.term) {
+      fetchArticlesRequest(nextProps.search.term);
+    }
+  }
   renderArticles = () => {
-    return this.props.articles.payload.articles.map((article) => {
+    return this.props.articles.payload.articles.map((article, index) => {
       return (
         <Article
           author={article.author}
@@ -20,6 +28,7 @@ class Articles extends Component {
           urlToImage={article.urlToImage}
           key={article.url}
           date={article.publishedAt}
+          delay={index / this.props.articles.payload.articles.length}
         />
       );
     })
@@ -28,7 +37,10 @@ class Articles extends Component {
     return (
       <div id="news">
         {
-          this.props.articles.status === 'WAITING' && <span>...LOADING...</span> // 여기에다가 로딩서클 나중에..
+          this.props.articles.status === 'INIT' && <EmptyResult />
+        }
+        {
+          this.props.articles.status === 'WAITING' && <LoadingCircle />
         }
         {
           this.props.articles.status === 'SUCCESS' && this.renderArticles()
