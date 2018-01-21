@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
 import './Youtube.css';
+import EmptyResult from '../EmptyResult/EmptyResult';
+import Video from './Video/Video';
 
 class Youtube extends Component {
   componentDidMount = () => {
@@ -10,22 +13,27 @@ class Youtube extends Component {
         // console.log(res.payload.items);
       });
     }
-
+  }
+  componentWillReceiveProps(nextProps) {
+    const { search, fetchYoutubeRequest } = this.props;
+    if (nextProps.search.term !== search.term) {
+      fetchYoutubeRequest(nextProps.search.term);
+    }
   }
   renderYoutube = () => {
     return this.props.youtube.payload.items.map((item, index) => {
       const { title, description, thumbnails, channelTitle, publishedAt } = item.snippet;
       return (
-        <div className="list-group" key={item.id.videoId}>
-          <a href={`https://www.youtube.com/watch?v=${item.id.videoId}`} target="_blank"><img className="youtube-image" src={thumbnails.medium.url} alt={thumbnails.medium.url} /></a>
-          <div className="list-group-item list-group-item-action flex-column align-items-start active">
-            <div className="d-flex w-100 justify-content-between">
-              <a href={`https://www.youtube.com/watch?v=${item.id.videoId}`} target="_blank" className="youtube-title"><h5 className="mb-1">{ title }</h5></a>
-              <small>{ channelTitle }</small>
-            </div>
-            <div>{ publishedAt }</div>
-          </div>
-        </div>
+        <Video
+          item={item}
+          publishedAt={publishedAt}
+          title={title}
+          description={description}
+          thumbnails={thumbnails}
+          channelTitle={channelTitle}
+          key={item.id.videoId}
+          delay={index / this.props.youtube.payload.items.length}
+        />
       );
     })
   }
@@ -33,7 +41,10 @@ class Youtube extends Component {
     return (
       <div id="youtube">
         {
-          this.props.youtube.status === 'WAITING' && <span>...LOADING...</span>
+          this.props.youtube.status === 'INIT' && <EmptyResult />
+        }
+        {
+          this.props.youtube.status === 'WAITING' && <LoadingCircle />
         }
         {
           this.props.youtube.status === 'SUCCESS' && this.renderYoutube()

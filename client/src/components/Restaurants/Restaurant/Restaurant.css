@@ -1,3 +1,12 @@
+.restaurant-container .restaurant-title {
+  width: 70%;
+}
+.restaurant-container .category {
+  margin-right: 4px;
+}
+.restaurant-container.list-group {
+  width: 100%;
+}
 .list-group {
   flex-direction: row !important;
   margin: 5px;

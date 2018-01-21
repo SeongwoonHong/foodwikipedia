@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
+import EmptyResult from '../EmptyResult/EmptyResult';
+import Recipe from './Recipe/Recipe';
 import './Recipes.css'
 
 class Recipes extends Component {
 
   componentDidMount() {
 
-    const { search, fetchRecipes, recipes } = this.props;
+    const { search, fetchRecipesRequest, recipes } = this.props;
     if (search.term && !recipes.list.length) {
-      fetchRecipes(search.term);
+      fetchRecipesRequest(search.term);
     }
 
   }
 
   componentWillReceiveProps(nextProps) {
 
-    const { search, fetchRecipes } = this.props;
+    const { search, fetchRecipesRequest } = this.props;
 
     if (nextProps.search.term !== search.term) {
-      fetchRecipes(nextProps.search.term);
+      fetchRecipesRequest(nextProps.search.term);
     }
 
   }
@@ -28,24 +30,25 @@ class Recipes extends Component {
     const { recipes } = this.props;
 
     return (
-      <ul>
+      <div>
         {
-          recipes.list.map(recipe => {
-            return ([
-              <div key={ recipe.title.length } className="list-group">
-                <img className="restaurant-image" src={recipe.image_url} alt={recipe.title} />,
-                <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active">
-                  <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">{ recipe.title }</h5>
-                    <small>{ recipe.social_rank }</small>
-                  </div>
-                  <p>{ recipe.source_url }</p>
-                </a>
-              </div>
-            ])
+          recipes.status === 'INIT' && <EmptyResult />
+        }
+        {
+          recipes.status === 'WAITING' && <LoadingCircle />
+        }
+        {
+          recipes.list.map((recipe, index) => {
+            return (
+              <Recipe
+                recipe={recipe}
+                delay={index / recipes.list.length}
+                key={recipe.source_url}
+              />
+            );
           })
         }
-      </ul>
+      </div>
     );
   }
 }

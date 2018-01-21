@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
 import Restaurant from './Restaurant/Restaurant';
+import LoadingCircle from '../LoadingCircle/LoadingCircle';
+import EmptyResult from '../EmptyResult/EmptyResult';
 
 class Restaurants extends Component {
 
@@ -28,6 +29,12 @@ class Restaurants extends Component {
     return (
       <div>
         {
+          yelp.status === 'INIT' && <EmptyResult />
+        }
+        {
+          yelp.status === 'WAITING' && <LoadingCircle />
+        }
+        {
           yelp.payload && yelp.payload.map((business, index) => {
             return (
               <Restaurant
@@ -40,6 +47,7 @@ class Restaurants extends Component {
                 url={ business.url }
                 location={ business.location }
                 key={ business.url }
+                delay={index / yelp.payload.length}
               />
             );
           })
