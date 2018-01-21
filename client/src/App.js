@@ -16,8 +16,8 @@ class App extends Component {
     });
   }
 
-  onSubmitHandler = (term, location) => {
-    this.props.fetchWatsonUrlRequest(term, location).then((data) => {
+  onSubmitHandler = (submitData) => {
+    this.props.fetchWatsonFileRequest(submitData).then((data) => {
     });
   }
   render() {
@@ -35,7 +35,7 @@ class App extends Component {
           <div className="row">
             <div className="col-2 bd-sidebar">
               <SearchForm
-                onSubmit={this.props.onSubmitHandler}
+                onSubmitHandler={this.onSubmitHandler}
                 fetchWatsonFileRequest={this.props.fetchWatsonFileRequest}
                 history={ history }
               />
@@ -93,7 +93,7 @@ const mapStateToProps = (state) => {
     search: state.search
   };
 };
-<<<<<<< HEAD
+
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchYelpRequest: (term, location) => {
@@ -108,8 +108,5 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(App);
-=======
 
-export default connect(mapStateToProps, null)(App);
->>>>>>> 7c09a1cdda5a40d0e30fa30ac78de45777f97a8b
+export default connect(mapStateToProps, mapDispatchToProps)(App);

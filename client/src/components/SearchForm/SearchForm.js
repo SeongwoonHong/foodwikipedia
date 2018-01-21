@@ -3,17 +3,7 @@ import React, { Component } from 'react';
 import './SearchForm.css'
 
 class SearchForm extends Component {
-  constructor(props) {
 
-<<<<<<< HEAD
-    super(props);
-
-    this.state = {
-      fileResult: null
-    }
-
-  }
-=======
   componentWillReceiveProps(nextProps) {
     const { history, search, executeSearch } = this.props;
     if (nextProps.search.term !== search.term) {
@@ -24,7 +14,6 @@ class SearchForm extends Component {
     }
   }
 
->>>>>>> 7c09a1cdda5a40d0e30fa30ac78de45777f97a8b
   onImageUpload = (e) => {
 
     this.setState({ isLoading: true });
@@ -42,16 +31,14 @@ class SearchForm extends Component {
   onSubmitHandler = (e) => {
 
     e.preventDefault();
-<<<<<<< HEAD
+    console.log(this.props.search.file);
     const fileData = new FormData();
-    fileData.append('file', this.props.search.file);
-    this.props.fetchWatsonFileRequest(fileData);
-=======
+    fileData.append('images_file', this.props.search.file);
+    this.props.onSubmitHandler(fileData);
 
-    const { registerSearchTerm }  = this.props;
-    registerSearchTerm('term', document.getElementById('searchTerm').value);
+    // const { registerSearchTerm }  = this.props;
+    // registerSearchTerm('term', document.getElementById('searchTerm').value);
 
->>>>>>> 7c09a1cdda5a40d0e30fa30ac78de45777f97a8b
   };
 
 
