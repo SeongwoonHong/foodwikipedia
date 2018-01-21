@@ -5,6 +5,7 @@ const initialState = {
     isSearching: false,
     term: '',
     file: '',
+    location: '',
     type: 'text',
     recipes: [],
   },
@@ -45,7 +46,6 @@ export default function (state = initialState.search, action) {
       return Object.assign({}, state, {
           status: 'FAILURE'
       });
-
     default:
       return state;
 

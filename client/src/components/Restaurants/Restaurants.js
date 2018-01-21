@@ -9,7 +9,7 @@ class Restaurants extends Component {
 
     const { search, fetchYelpRequest, yelp } = this.props;
     if (search.term && !yelp.payload) {
-      fetchYelpRequest(search.term, 'toronto');
+      fetchYelpRequest(search.term, search.location);
     }
   }
 
@@ -18,7 +18,7 @@ class Restaurants extends Component {
     const { search, fetchYelpRequest } = this.props;
 
     if (nextProps.search.term !== search.term) {
-      fetchYelpRequest(nextProps.search.term, 'toronto');
+      fetchYelpRequest(nextProps.search.term, search.location);
     }
 
   }

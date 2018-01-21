@@ -11,6 +11,7 @@
     width: 100%;
     font-size: 12px;
 }
+
 .SearchForm > .input-group > img {
     display: block;
     height: 100%;
@@ -29,4 +30,7 @@
 }
 .custom-file-input {
   cursor: pointer;
+}
+.SearchForm .location {
+  width: 100%;
 }

@@ -34,6 +34,8 @@ class Restaurant extends Component {
                 );
               })
           }
+          <div className="restaurant-address">{ location.address1 }</div>
+          <div className="restaurant-city">{ location.city }</div>
           <p>{ phone }</p>
         </div>
       </div>
