@@ -7,26 +7,43 @@ const initialState = {
     file: '',
     type: 'text',
     recipes: [],
+  },
+  watson: {
+    status: 'INIT'
   }
 };
 
 export default function (state = initialState.search, action) {
-
   switch (action.type) {
 
     case types.CHANGE_SEARCH_TYPE:
       return Object.assign({}, state, {
-        type: action.payload
+          type: action.payload
       });
 
     case types.REGISTER_SEARCH_TERM:
       return Object.assign({}, state, {
-        [action.payload.type]: action.payload.value
+            [action.payload.type]: action.payload.value
       });
 
     case types.EXECUTE_SEARCH:
       return Object.assign({}, state, {
-        isSearching: false
+            isSearching: false
+      });
+    case types.FETCH_WATSON:
+      return Object.assign({}, state, {
+            status: 'WAITING'
+      });
+
+    case types.FETCH_WATSON_SUCCESS:
+      return Object.assign({}, state, {
+          status: 'SUCCESS',
+          term: action.payload.data
+      });
+
+    case types.FETCH_WATSON_FAILURE:
+      return Object.assign({}, state, {
+          status: 'FAILURE'
       });
 
     default:

@@ -6,17 +6,13 @@ class Restaurants extends Component {
 
   componentDidMount() {
 
-    const { search, fetchYelpRequest } = this.props;
-
-    if (search.term) {
+    const { search, fetchYelpRequest, yelp } = this.props;
+    if (search.term && !yelp.payload) {
       fetchYelpRequest(search.term, 'toronto');
     }
-
   }
 
   componentWillReceiveProps(nextProps) {
-
-    console.log(nextProps);
 
     const { search, fetchYelpRequest } = this.props;
 
@@ -29,8 +25,6 @@ class Restaurants extends Component {
   render() {
 
     const { yelp } = this.props;
-    console.dir(yelp);
-
     return (
       <div>
         {

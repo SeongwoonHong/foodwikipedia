@@ -48,44 +48,27 @@ app.post('/watson/file', upload.any(), async (req, res) => {
   const data = req.body.images_file.replace(/^data:image\/\w+;base64,/, "");
   const buff = Buffer.from(data, 'base64');
 
-  // var visual_recognition_params = {
-  //   images_file: req.body.images_file,
-  // };
   var visual_recognition = watson.visual_recognition({
   api_key: '8d7aced8efa9ce11cca985d203dce5989cc20148',
   version: 'v3',
   version_date: '2016-05-20'
 });
-//
+
 let parameters = {
   classifier_ids: ["food"]
 };
-//
+
 var params = {
   images_file: buff,
   parameters: parameters
 };
 
-// var config = {
-//   'Content-Type': 'multipart/form-data',
-//   'Accept': 'application/json',
-//   'Accept-Language': 'en'
-// }
 visual_recognition.classify(params, function(err, response) {
   if (err)
     console.log(err);
   else
-    console.log(JSON.stringify(response.images[0].classifiers[0].classes, null, 2))
+    return res.json(response.images[0].classifiers[0].classes[0].class, null, 2);
 });
-  // try {
-  //   const data = await axios.post('https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify?api_key=8d7aced8efa9ce11cca985d203dce5989cc20148&version=2016-05-20', params);
-  //   console.log('result');
-  //   console.log(data.data);
-  // }
-  // catch(err) {
-  //   console.log(err);
-  // }
-  // return (data.data.images[0].classifiers[0].classes);
 
 });
 

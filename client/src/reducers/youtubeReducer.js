@@ -7,30 +7,21 @@ const initialState = {
 };
 
 export default function yelpReducer(state = initialState, action) {
-
   switch (action.type) {
-
-    case types.FETCH_YELP:
+    case types.FETCH_YOUTUBE:
       return {
         status: 'WAITING'
       };
-
-    case types.FETCH_YELP_SUCCESS:
-      console.log(action.payload);
+    case types.FETCH_YOUTUBE_SUCCESS:
       return {
         status: 'SUCCESS',
-        payload: action.payload.businesses
-      };
-
-    case types.FETCH_YELP_FAILURE:
+        payload: action.payload
+      }
+    case types.FETCH_YOUTUBE_FAILURE:
       return {
         status: 'FAILURE',
         payload: action.error
-      };
-
-    default:
-      return state;
-
+      }
   }
-
+  return state;
 }

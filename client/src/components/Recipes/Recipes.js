@@ -6,9 +6,8 @@ class Recipes extends Component {
 
   componentDidMount() {
 
-    const { search, fetchRecipes } = this.props;
-
-    if (search.term) {
+    const { search, fetchRecipes, recipes } = this.props;
+    if (search.term && !recipes.list.length) {
       fetchRecipes(search.term);
     }
 

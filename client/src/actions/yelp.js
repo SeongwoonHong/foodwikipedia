@@ -25,7 +25,7 @@ export function fetchYelpRequest(term, location) {
   return (dispatch) => {
     dispatch(fetchYelp());
 
-    return axios.post('/yelp', { term, location }).then((res) => {
+    return axios.post('/api/yelp', { term, location }).then((res) => {
       return dispatch(fetchYelpSuccess(res.data));
     }).catch((e) => {
       return dispatch(fetchYelpFailure(e));
