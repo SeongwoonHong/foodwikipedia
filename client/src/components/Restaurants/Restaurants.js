@@ -40,7 +40,7 @@ class Restaurants extends Component {
               <Restaurant
                 categories={ business.categories }
                 name={ business.name }
-                phone={ business.phone }
+                phone={ business.display_phone }
                 price={ business.price }
                 rating={ business.rating }
                 image_url={ business.image_url }

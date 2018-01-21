@@ -3,6 +3,7 @@
 }
 .restaurant-container .category {
   margin-right: 4px;
+  display: inline-block;
 }
 .restaurant-container.list-group {
   width: 100%;
@@ -15,4 +16,13 @@
   width: 100px;
   height: 120px;
   display: inline-block;
+}
+
+@media screen and (max-width: 550px) {
+  .restaurant-container .category {
+    font-size: 9px;
+  }
+  .restaurant-phone {
+    font-size: 9px;
+  }
 }

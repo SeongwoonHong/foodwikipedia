@@ -22,19 +22,21 @@ class Restaurant extends Component {
             <div className="mb-1 restaurant-title">{ name }</div>
             <small>{ rating }</small>
           </div>
-          {
+          <div>
+            {
               categories.map((category) => {
                 return (
                   <span
                     className="mb-1 category"
                     key={category.title}
-                  >
-                    { category.title }
-                  </span>
-                );
-              })
-          }
-          <p>{ phone }</p>
+                    >
+                      { category.title }
+                    </span>
+                  );
+                })
+              }
+          </div>
+          <p className="restaurant-phone">{ phone }</p>
         </div>
       </div>
     );
