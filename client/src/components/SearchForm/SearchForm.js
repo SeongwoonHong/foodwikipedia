@@ -23,6 +23,9 @@ class SearchForm extends Component {
 
     reader.onloadend = () => {
       this.props.registerSearchTerm('file', reader.result);
+      const fileData = new FormData();
+      fileData.append('images_file', this.props.search.file);
+      this.props.fetchWatsonFileRequest(fileData);
     };
 
     reader.readAsDataURL(image);
@@ -34,9 +37,14 @@ class SearchForm extends Component {
     e.preventDefault();
 
     const { registerSearchTerm }  = this.props;
-    registerSearchTerm('term', document.getElementById('searchTerm').value);
-
+    let searchValue = document.getElementById('searchTerm').value;
+    if (searchValue.trim()) {
+      registerSearchTerm('term', searchValue.trim());
+    } else {
+      document.getElementById('searchTerm').value = '';
+    }
   };
+
 
   render() {
 

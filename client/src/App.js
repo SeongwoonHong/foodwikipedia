@@ -12,7 +12,15 @@ import Recipes from './components/Recipes';
 import Nutrition from './components/Nutrition/Nutrition';
 
 class App extends Component {
+  callYelp = (term, location) => {
+    this.props.fetchYelpRequest(term, location).then((data) => {
+    });
+  }
 
+  fetchWatsonFileRequest = (submitData) => {
+    this.props.fetchWatsonFileRequest(submitData).then((data) => {
+    });
+  }
   render() {
 
     const { history, search } = this.props;
@@ -27,7 +35,9 @@ class App extends Component {
         <div className="container-fluid">
           <div className="contents">
             <div className="header">
-              <SearchForm history={ history } />
+              <SearchForm
+                history={ history }
+                fetchWatsonFileRequest={this.fetchWatsonFileRequest}/>
             </div>
             <div className="body">
               {
@@ -94,4 +104,18 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchYelpRequest: (term, location) => {
+      return dispatch(actions.fetchYelpRequest(term, location));
+    },
+    fetchWatsonUrlRequest: () => {
+      return dispatch(actions.fetchWatsonUrlRequest());
+    },
+    fetchWatsonFileRequest: (value) => {
+      return dispatch(actions.fetchWatsonFileRequest(value));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
