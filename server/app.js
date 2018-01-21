@@ -5,6 +5,7 @@ var watson = require('watson-developer-cloud');
 const app = express();
 const yelpApi = 'https://api.yelp.com/v3/businesses/search';
 const yelpApiKey = 'BqPj5udquNHHVWamBDJFuzguSZPmMxACorv7NqYWz4WVpsxsw1QFu-b06Txb6xGjG2hemRE5beTVcN-GdPVwu6vZ6zGENAybB46_5lUFANw4Dy0wbj7oV4qghtxiWnYx';
+const port = process.env.PORT || 4000;
 
 const upload = require('multer')({
   limits: {
@@ -57,6 +58,6 @@ visual_recognition.classify(params, function(err, response) {
 
 });
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log('Express is running on port 4000');
 });
